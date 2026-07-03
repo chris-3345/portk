@@ -25,7 +25,7 @@ cargo install --path .
 For the above to work, make sure ~/.cargo/bin is in your PATH.
 
 ## OS Support/How it works
-`portcull` is cross-platform and uses native system commands to find PIDs. On Linux/macOS, it uses lsof. On Windows, it uses netstat and a regex.
+`portcull` is cross-platform and uses native system commands to find PIDs. On Linux/macOS, it uses lsof. On Windows, it uses netstat.
 
 **Depending on the ports you are trying to clear, you may need to run `portcull` with admin privileges (e.g., `sudo portcull <ports>` on Linux/Mac or an elevated Command Prompt/PowerShell on Windows) so it has permission to look up and kill those processes.**
 

@@ -147,18 +147,7 @@ Copyright notice to preserve:
 Year status: MIT branch: no year stated. Unicode-3.0 branch: years stated: 1991-2023.
 Notes: Unicode-3.0 remains mandatory because the upstream expression uses AND.
 
-8. regex ecosystem crates
--------------------------
-Crates: regex 1.12.4; regex-automata 0.4.14; regex-syntax 0.8.11
-Upstream license expression: MIT OR Apache-2.0
-Selected license basis: MIT
-Repository: https://github.com/rust-lang/regex
-Copyright notice to preserve:
-  Copyright (c) 2014 The Rust Project Developers
-Year status: Year stated: 2014.
-Notes: Andrew Gallant / BurntSushi is the primary maintainer; repo-level license notice names The Rust Project Developers.
-
-9. BurntSushi string-search crates
+8. BurntSushi string-search crates
 ----------------------------------
 Crates: aho-corasick 1.1.4; memchr 2.8.2
 Upstream license expression: Unlicense OR MIT
@@ -169,7 +158,7 @@ Copyright notice to preserve:
 Year status: Year stated: 2015.
 Notes: MIT elected instead of Unlicense for conventional compliance handling.
 
-10. bitflags
+9. bitflags
 ------------
 Crates: bitflags 2.13.0
 Upstream license expression: MIT OR Apache-2.0
@@ -180,7 +169,7 @@ Copyright notice to preserve:
 Year status: Year stated: 2014.
 Notes: Target-specific dependency pulled in through platform crates.
 
-11. strsim / RapidFuzz string similarity crate
+10. strsim / RapidFuzz string similarity crate
 ----------------------------------------------
 Crates: strsim 0.11.1
 Upstream license expression: MIT
@@ -191,7 +180,7 @@ Copyright notice to preserve:
 Year status: Years stated: 2015, 2016, 2018.
 Notes: Single-license MIT crate; no election needed.
 
-12. heck case-conversion crate
+11. heck case-conversion crate
 ------------------------------
 Crates: heck 0.5.0
 Upstream license expression: MIT OR Apache-2.0
@@ -202,7 +191,7 @@ Copyright notice to preserve:
 Year status: Year stated: 2015.
 Notes: Used by clap_derive.
 
-13. sysinfo
+12. sysinfo
 -----------
 Crates: sysinfo 0.39.5
 Upstream license expression: MIT
@@ -213,7 +202,7 @@ Copyright notice to preserve:
 Year status: Year stated: 2015.
 Notes: Direct dependency in this project.
 
-14. libc / Rust raw platform bindings
+13. libc / Rust raw platform bindings
 -------------------------------------
 Crates: libc 0.2.186
 Upstream license expression: MIT OR Apache-2.0
@@ -224,7 +213,7 @@ Copyright notice to preserve:
 Year status: No year stated in the upstream LICENSE-MIT file checked; preserve the upstream notice as written.
 Notes: Rust Project libc crate.
 
-15. ntapi
+14. ntapi
 ---------
 Crates: ntapi 0.4.3
 Upstream license expression: Apache-2.0 OR MIT
@@ -235,7 +224,7 @@ Copyright notice to preserve:
 Year status: No year stated; do not invent one.
 Notes: Windows NT API bindings dependency.
 
-16. winapi and winapi GNU import crates
+15. winapi and winapi GNU import crates
 ---------------------------------------
 Crates: winapi 0.3.9; winapi-i686-pc-windows-gnu 0.4.0; winapi-x86_64-pc-windows-gnu 0.4.0
 Upstream license expression: MIT/Apache-2.0
@@ -246,7 +235,7 @@ Copyright notice to preserve:
 Year status: Years stated: 2015-2018.
 Notes: Import crates are part of the winapi-rs ecosystem / target support path.
 
-17. objc2 / dispatch2 Apple framework binding crates
+16. objc2 / dispatch2 Apple framework binding crates
 ----------------------------------------------------
 Crates: dispatch2 0.3.1; objc2 0.6.4; objc2-core-foundation 0.3.2; objc2-encode 4.1.0; objc2-foundation 0.3.2; objc2-io-kit 0.3.2; objc2-open-directory 0.3.2
 Upstream license expression: objc2, objc2-foundation, objc2-encode: MIT. dispatch2 and generated framework crates: MIT OR Apache-2.0 OR Zlib.
@@ -374,22 +363,7 @@ Copyright / attribution notice:
 Year status: MIT branch: no year stated. Unicode-3.0 branch: years stated: 1991-2023.
 Additional notes: Unicode-3.0 remains mandatory because the upstream expression uses AND.
 
-8. regex ecosystem crates
-
-Crates:
-- regex 1.12.4
-- regex-automata 0.4.14
-- regex-syntax 0.8.11
-
-Upstream license expression: MIT OR Apache-2.0
-Selected license basis for this distribution: MIT
-Repository: https://github.com/rust-lang/regex
-Copyright / attribution notice:
-  Copyright (c) 2014 The Rust Project Developers
-Year status: Year stated: 2014.
-Additional notes: Andrew Gallant / BurntSushi is the primary maintainer; repo-level license notice names The Rust Project Developers.
-
-9. BurntSushi string-search crates
+8. BurntSushi string-search crates
 
 Crates:
 - aho-corasick 1.1.4
@@ -403,7 +377,7 @@ Copyright / attribution notice:
 Year status: Year stated: 2015.
 Additional notes: MIT elected instead of Unlicense for conventional compliance handling.
 
-10. bitflags
+9. bitflags
 
 Crates:
 - bitflags 2.13.0
@@ -416,7 +390,7 @@ Copyright / attribution notice:
 Year status: Year stated: 2014.
 Additional notes: Target-specific dependency pulled in through platform crates.
 
-11. strsim / RapidFuzz string similarity crate
+10. strsim / RapidFuzz string similarity crate
 
 Crates:
 - strsim 0.11.1
@@ -429,7 +403,7 @@ Copyright / attribution notice:
 Year status: Years stated: 2015, 2016, 2018.
 Additional notes: Single-license MIT crate; no election needed.
 
-12. heck case-conversion crate
+11. heck case-conversion crate
 
 Crates:
 - heck 0.5.0
@@ -442,7 +416,7 @@ Copyright / attribution notice:
 Year status: Year stated: 2015.
 Additional notes: Used by clap_derive.
 
-13. sysinfo
+12. sysinfo
 
 Crates:
 - sysinfo 0.39.5
@@ -455,7 +429,7 @@ Copyright / attribution notice:
 Year status: Year stated: 2015.
 Additional notes: Direct dependency in this project.
 
-14. libc / Rust raw platform bindings
+13. libc / Rust raw platform bindings
 
 Crates:
 - libc 0.2.186
@@ -468,7 +442,7 @@ Copyright / attribution notice:
 Year status: No year stated in the upstream LICENSE-MIT file checked; preserve the upstream notice as written.
 Additional notes: Rust Project libc crate.
 
-15. ntapi
+14. ntapi
 
 Crates:
 - ntapi 0.4.3
@@ -481,7 +455,7 @@ Copyright / attribution notice:
 Year status: No year stated; do not invent one.
 Additional notes: Windows NT API bindings dependency.
 
-16. winapi and winapi GNU import crates
+15. winapi and winapi GNU import crates
 
 Crates:
 - winapi 0.3.9
@@ -496,7 +470,7 @@ Copyright / attribution notice:
 Year status: Years stated: 2015-2018.
 Additional notes: Import crates are part of the winapi-rs ecosystem / target support path.
 
-17. objc2 / dispatch2 Apple framework binding crates
+16. objc2 / dispatch2 Apple framework binding crates
 
 Crates:
 - dispatch2 0.3.1
@@ -540,7 +514,6 @@ External references checked while preparing the copyright-year addendum:
 - https://raw.githubusercontent.com/dtolnay/syn/master/LICENSE-MIT
 - https://docs.rs/crate/unicode-ident/1.0.24/source/LICENSE-MIT
 - https://docs.rs/crate/unicode-ident/1.0.24/source/LICENSE-UNICODE
-- https://raw.githubusercontent.com/rust-lang/regex/master/LICENSE-MIT
 - https://raw.githubusercontent.com/BurntSushi/aho-corasick/master/LICENSE-MIT
 - https://raw.githubusercontent.com/BurntSushi/memchr/master/LICENSE-MIT
 - https://raw.githubusercontent.com/bitflags/bitflags/main/LICENSE-MIT

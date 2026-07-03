@@ -1,5 +1,4 @@
 use clap::Parser;
-use regex::Regex;
 use std::collections::HashSet;
 use std::io::{self, Write};
 use std::process::Command;
@@ -50,13 +49,21 @@ fn run_windows(args: &Args) -> Vec<String> {
     let stdout = String::from_utf8_lossy(&output.stdout);
 
     for &port in &args.ports {
-        let re_pattern = format!(r":{}\s+.*\s+(\d+)$", port);
-        let re = Regex::new(&re_pattern).unwrap();
+        let target_port_suffix = format!(":{}", port);
 
         for line in stdout.lines() {
-            if let Some(caps) = re.captures(line) {
-                if let Some(pid) = caps.get(1) {
-                    pids.insert(pid.as_str().to_string());
+            let columns: Vec<&str> = line.split_whitespace().collect();
+
+            // Check if it's a valid connection row
+            if columns.len() >= 4 {
+                let local_addr = columns[1];
+                let pid = columns[columns.len() - 1]; // Always the last column
+
+                // Fix the comma to a dot here
+                if local_addr.ends_with(&target_port_suffix) {
+                    if pid.chars().all(|c| c.is_ascii_digit()) {
+                        pids.insert(pid.to_string());
+                    }
                 }
             }
         }
