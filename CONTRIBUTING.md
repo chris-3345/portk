@@ -1,10 +1,10 @@
-# Contributing to portk
+# Contributing to portcull
 
-Thanks for helping improve `portk`. This project should stay small, predictable, and easy to audit.
+Thanks for helping improve `portcull`. This project should stay small, predictable, and easy to audit.
 
 ## Project priorities
 
-`portk` should remain lightweight and cross-platform. Prefer clear Rust, explicit platform handling, and simple behavior over clever abstractions. If a change makes the tool harder to understand, harder to build, or harder to audit, it needs a very good reason.
+`portcull` should remain lightweight and cross-platform. Prefer clear Rust, explicit platform handling, and simple behavior over clever abstractions. If a change makes the tool harder to understand, harder to build, or harder to audit, it needs a very good reason.
 
 ## Keep third-party packages to a minimum
 
