@@ -1,0 +1,43 @@
+# Contributing to portk
+
+Thanks for helping improve `portk`. This project should stay small, predictable, and easy to audit.
+
+## Project priorities
+
+`portk` should remain lightweight and cross-platform. Prefer clear Rust, explicit platform handling, and simple behavior over clever abstractions. If a change makes the tool harder to understand, harder to build, or harder to audit, it needs a very good reason.
+
+## Keep third-party packages to a minimum
+
+Please do not add a new dependency casually. Every third-party crate increases compile time, binary size, audit surface, license obligations, and supply-chain risk.
+
+Before adding a crate, check whether the Rust standard library or a small amount of local code is enough. A dependency is reasonable when it avoids a meaningful amount of tricky code, handles cross-platform behavior correctly, provides security-sensitive parsing or system integration that should not be handwritten, or is already part of the existing dependency tree.
+
+A new dependency should be avoided when it only saves a few lines of code, wraps a simple standard-library API, brings in a large transitive dependency tree for a small feature, has unclear maintenance status, uses an incompatible or annoying license, or exists only to make the implementation look cleaner.
+
+When proposing a new dependency, include the crate name and version, why it is needed, why the standard library is not enough, what transitive dependencies it adds, its license, its repository, and whether it affects only one platform or all builds.
+
+## Dependency and license rules
+
+Keep `Cargo.toml` and `Cargo.lock` in sync. If dependency changes affect third-party licensing, update the third-party notices files in the same pull request.
+
+Prefer permissively licensed crates such as MIT, Apache-2.0, BSD, ISC, Zlib, or Unicode-3.0-compatible packages. Do not add GPL, LGPL, AGPL, SSPL, BUSL, or other copyleft/source-available licenses without explicit discussion first.
+
+For crates licensed under `MIT OR Apache-2.0`, this project prefers the MIT license path unless there is a specific reason to rely on Apache-2.0. Preserve upstream copyright and permission notices exactly as provided.
+
+## Development setup
+
+Use the stable Rust toolchain unless the project explicitly requires otherwise.
+
+If your change is platform-specific, test it on the affected platform when possible. For Windows-specific code, avoid assuming Unix process or networking behavior.
+
+## Code style
+
+Keep functions small when that improves readability, but do not split code into tiny fragments just to look abstract. Prefer explicit names, direct control flow, and useful error messages. Avoid unnecessary traits, macros, global state, and hidden side effects.
+
+## Pull requests
+
+Keep PRs small/manageable (that's about it).
+
+## Maintainer discretion
+
+The maintainer may reject a change that is technically correct but makes the project larger, riskier, harder to audit, or less focused.
