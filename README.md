@@ -12,6 +12,13 @@ Are you sure you want to kill these processes: ["node.exe"]? (y/N): y
 Killing processes!
 Killed PID 28644 (node.exe)
 ```
+
+Additionally, you can now query a port without killing the process:
+```bash
+$ portcull --query 8000
+Active processes found:
+PID: 27656 | Name: node.exe
+```
 (you can run it with as many ports as you want and it'll attempt to kill processes associated with all of them)
 
 ## Installation

@@ -6,8 +6,13 @@ use sysinfo::{Pid, System};
 
 #[derive(Parser, Debug)]
 struct Args {
+    /// The ports to kill
     #[arg(required = true)]
     ports: Vec<u16>,
+
+    /// Display active processes on the port(s) without killing
+    #[arg(long)]
+    query: bool,
 }
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
@@ -85,16 +90,15 @@ fn run_windows(args: &Args) -> Vec<String> {
     pids.into_iter().collect()
 }
 
-fn kill_pids(pids: &[String]) {
-    let mut sys = System::new(); // init system interface
+fn get_process_names(pids: &[String]) -> Vec<String> {
+    let mut sys = System::new();
     let mut process_names: Vec<String> = Vec::new();
 
-    // Get process names for a confirmation prompt
     for pid_str in pids {
         if let Ok(pid_num) = pid_str.parse::<usize>() {
             let pid = Pid::from(pid_num);
 
-            sys.refresh_processes(sysinfo::ProcessesToUpdate::Some(&[pid]), true); // refresh PID info
+            sys.refresh_processes(sysinfo::ProcessesToUpdate::Some(&[pid]), true);
 
             if let Some(proc) = sys.process(pid) {
                 process_names.push(proc.name().to_string_lossy().into_owned());
@@ -106,11 +110,10 @@ fn kill_pids(pids: &[String]) {
         }
     }
 
-    if pids.is_empty() {
-        println!("No active processes found on provided ports!");
-        return;
-    }
+    process_names
+}
 
+fn kill_pids(pids: &[String], process_names: &[String]) {
     if process_names
         .iter()
         .any(|name| name.to_lowercase().contains("ollama"))
@@ -133,12 +136,12 @@ fn kill_pids(pids: &[String]) {
         .expect("Failed to read input");
 
     if confirmation_prompt.trim().to_lowercase() == "y" {
-        // Start killing the PIDs
+        let mut sys = System::new(); // Re-init to get fresh state before killing
         println!("Killing processes!");
+
         for pid_str in pids {
             if let Ok(pid_num) = pid_str.parse::<usize>() {
                 let pid = Pid::from(pid_num);
-                // refresh process AGAIN to make sure it didn't close
                 sys.refresh_processes(sysinfo::ProcessesToUpdate::Some(&[pid]), true);
 
                 if let Some(proc) = sys.process(pid) {
@@ -166,5 +169,21 @@ fn main() {
     #[cfg(any(target_os = "linux", target_os = "macos"))]
     let proc_ids = run_unix(&args);
 
-    kill_pids(&proc_ids);
+    if proc_ids.is_empty() {
+        println!("No active processes found on provided ports; exiting.");
+        return;
+    }
+    let process_names = get_process_names(&proc_ids);
+
+    if args.query {
+        println!("Active processes found:");
+
+        for (pid, name) in proc_ids.iter().zip(process_names.iter()) {
+            println!("PID: {} | Name: {}", pid, name);
+        }
+
+        return;
+    }
+
+    kill_pids(&proc_ids, &process_names);
 }

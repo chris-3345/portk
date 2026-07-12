@@ -1,6 +1,7 @@
 [package]
 name = "portcull"
-version = "0.1.0"
+version = "0.1.1"
+description = "Kills processes running on ports"
 edition = "2024"
 
 [dependencies]
