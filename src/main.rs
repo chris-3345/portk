@@ -13,6 +13,10 @@ struct Args {
     /// Display active processes on the port(s) without killing
     #[arg(long)]
     query: bool,
+
+    /// Run without confirmation prompt
+    #[arg(long, short)]
+    quiet: bool,
 }
 
 #[cfg(any(target_os = "linux", target_os = "macos"))]
@@ -113,7 +117,7 @@ fn get_process_names(pids: &[String]) -> Vec<String> {
     process_names
 }
 
-fn kill_pids(pids: &[String], process_names: &[String]) {
+fn kill_pids(pids: &[String], process_names: &[String], args: &Args) {
     if process_names
         .iter()
         .any(|name| name.to_lowercase().contains("ollama"))
@@ -124,39 +128,43 @@ fn kill_pids(pids: &[String], process_names: &[String]) {
     }
 
     let mut confirmation_prompt = String::new();
-    print!(
-        "Are you sure you want to kill these processes: {:?}? (y/N): ",
-        process_names
-    );
 
-    io::stdout().flush().expect("Failed to flush stdout");
+    if !args.quiet {
+        print!(
+            "Are you sure you want to kill these processes: {:?}? (y/N): ",
+            process_names
+        );
 
-    io::stdin()
-        .read_line(&mut confirmation_prompt)
-        .expect("Failed to read input");
+        io::stdout().flush().expect("Failed to flush stdout");
 
-    if confirmation_prompt.trim().to_lowercase() == "y" {
-        let mut sys = System::new(); // Re-init to get fresh state before killing
-        println!("Killing processes!");
+        io::stdin()
+            .read_line(&mut confirmation_prompt)
+            .expect("Failed to read input");
 
-        for pid_str in pids {
-            if let Ok(pid_num) = pid_str.parse::<usize>() {
-                let pid = Pid::from(pid_num);
-                sys.refresh_processes(sysinfo::ProcessesToUpdate::Some(&[pid]), true);
+        if confirmation_prompt.trim().to_lowercase() != "y" {
+            println!("Canceled.");
+            return;
+        }
+    }
 
-                if let Some(proc) = sys.process(pid) {
-                    if proc.kill() {
-                        println!("Killed PID {} ({})", pid_str, proc.name().to_string_lossy());
-                    } else {
-                        println!("Failed to kill PID {} (Permission denied?)", pid_str);
-                    }
+    let mut sys = System::new(); // Re-init to get fresh state before killing
+    println!("Killing processes!");
+
+    for pid_str in pids {
+        if let Ok(pid_num) = pid_str.parse::<usize>() {
+            let pid = Pid::from(pid_num);
+            sys.refresh_processes(sysinfo::ProcessesToUpdate::Some(&[pid]), true);
+
+            if let Some(proc) = sys.process(pid) {
+                if proc.kill() {
+                    println!("Killed PID {} ({})", pid_str, proc.name().to_string_lossy());
                 } else {
-                    println!("PID {} closed on its own...", pid_str);
+                    println!("Failed to kill PID {} (Permission denied?)", pid_str);
                 }
+            } else {
+                println!("PID {} closed on its own...", pid_str);
             }
         }
-    } else {
-        println!("Canceled.");
     }
 }
 
@@ -185,5 +193,5 @@ fn main() {
         return;
     }
 
-    kill_pids(&proc_ids, &process_names);
+    kill_pids(&proc_ids, &process_names, &args);
 }
